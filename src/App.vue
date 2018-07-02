@@ -14,12 +14,12 @@
       <!-- <scroller :lock-y="true"> -->
         <div class="tab">
           <tab>
-            <tab-item selected>HTML</tab-item>
-            <tab-item>CSS</tab-item>
-            <tab-item>JS</tab-item>
-            <tab-item>Vue</tab-item>
-            <tab-item>Webpack</tab-item>
-            <tab-item>Node</tab-item>
+            <tab-item selected><router-link to="/">HTML</router-link></tab-item>
+            <tab-item><router-link to="/css">CSS</router-link></tab-item>
+            <tab-item><router-link to="/js">JS</router-link></tab-item>
+            <tab-item><router-link to="/vue">Vue</router-link></tab-item>
+            <tab-item><router-link to="/webpack">Webpack</router-link></tab-item>
+            <tab-item><router-link to="/node">Node</router-link></tab-item>
           </tab> 
         </div>
       <!-- </scroller> -->
@@ -30,10 +30,13 @@
         <marquee-item>JS实现照片图片变成黑白线条线稿</marquee-item>
         <marquee-item>纯CSS实现蜡烛、火焰以及熄灭后烟雾效果</marquee-item>
       </marquee>
-      <panel
+        <div class="content">
+          <router-view></router-view>
+        </div>
+      <!-- <panel
         :list="panelList"
       >
-      </panel>
+      </panel> -->
       <tabbar slot="bottom">
         <tabbar-item>
           <span slot="label">首页</span>
@@ -50,7 +53,7 @@
       </tabbar>
     </view-box>
 
-    <router-view/>
+    
   </div>
 </template>
 
@@ -104,14 +107,14 @@ export default {
   data(){
     return {
       demo01_index: 2,
-      demo01_list: baseList,
-      panelList:panelList
+      demo01_list: baseList
+      // panelList:panelList
     }
   }
 }
 </script>
 
-<style lang=less>
+<style lang="less">
 @import '~vux/src/styles/reset.less';
 
 html,body{
@@ -119,6 +122,7 @@ html,body{
   width:100%;
   height:100%;
   overflow-x:hidden;
+  font-size:100%;
 }
 #app {
   height: 100%;
@@ -152,5 +156,8 @@ img{
   height:80px;
   border-radius:50%;
   overflow: hidden;
+}
+.content{
+  height:500px;
 }
 </style>
