@@ -14,12 +14,13 @@
       <!-- <scroller :lock-y="true"> -->
         <div class="tab">
           <tab>
-            <tab-item selected><router-link to="/">HTML</router-link></tab-item>
-            <tab-item><router-link to="/css">CSS</router-link></tab-item>
-            <tab-item><router-link to="/js">JS</router-link></tab-item>
-            <tab-item><router-link to="/vue">Vue</router-link></tab-item>
-            <tab-item><router-link to="/webpack">Webpack</router-link></tab-item>
-            <tab-item><router-link to="/node">Node</router-link></tab-item>
+            <tab-item 
+            :selected="tabActive === navItem.link" 
+            :key="index"
+            v-for="(navItem, index) in navData" 
+            >
+            <router-link :to="navItem.link">{{navItem.name}}</router-link>
+          </tab-item>
           </tab> 
         </div>
       <!-- </scroller> -->
@@ -31,8 +32,11 @@
         <marquee-item>纯CSS实现蜡烛、火焰以及熄灭后烟雾效果</marquee-item>
       </marquee>
         <div class="content">
-          <router-view></router-view>
+          <transition name="fade">
+            <router-view />
+          </transition>
         </div>
+        <!-- <router-view name="webpack" /> -->
       <!-- <panel
         :list="panelList"
       >
@@ -59,6 +63,7 @@
 
 <script>
 import {ViewBox,XHeader,Tabbar,TabbarItem,Tab,TabItem,Scroller,Swiper,Panel,Marquee,MarqueeItem} from 'vux';
+// Banner数据
 const baseList = [{
   url: 'javascript:',
   img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vvsr72j20p00gogo2.jpg',
@@ -73,19 +78,56 @@ const baseList = [{
   title: '送你一次旅行',
   fallbackImg: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg'
 }];
+
+// 列表数据
 const panelList=[];
 for(var i=0; i<10; i++){
   panelList.push({
-  src: 'http://somedomain.somdomain/x.jpg',
-  fallbackSrc: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
-  title: '标题一',
-  desc: '由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。',
-  url: '/component/cell'
-})
+    src: 'http://somedomain.somdomain/x.jpg',
+    fallbackSrc: 'http://placeholder.qiniudn.com/60x60/3cc51f/ffffff',
+    title: '标题一',
+    desc: '由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。',
+    url: '/component/cell'
+  })
 }
+// 顶部导航数据
+const navData = [
+  {
+    name: "HTML",
+    link: '/html',
+    tplName: 'HtmlTpl'
+  },
+  {
+    name: "CSS",
+    link: '/css',
+    tplName: 'CssTpl'
+  },
+  {
+    name: "JS",
+    link: '/js',
+    tplName: 'JsTpl'
+  },
+  {
+    name: "Vue",
+    link: '/vue',
+    tplName: 'VueTpl'
+  },
+  {
+    name: "Webpack",
+    link: '/webpack',
+    tplName: 'WebpackTpl'
+  },
+  {
+    name: "Node",
+    link: '/node',
+    tplName: 'NodeTpl'
+  }
+]
+
 
 export default {
   name: 'App',
+  props: ['id'],
   components: {
     ViewBox,
     XHeader,
@@ -106,6 +148,8 @@ export default {
   },
   data(){
     return {
+      navData: navData,
+      tabActive: this.$route.fullPath,
       demo01_index: 2,
       demo01_list: baseList
       // panelList:panelList
@@ -136,7 +180,7 @@ html,body{
     margin-top:46px;
   }
   .marquee{
-    margin-top:10px;
+    margin:6px 0;
     font-size:13px;
   }
   .marquee ul{
@@ -158,6 +202,12 @@ img{
   overflow: hidden;
 }
 .content{
-  height:500px;
+  height:380px;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
