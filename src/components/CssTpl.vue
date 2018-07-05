@@ -1,5 +1,5 @@
 <template>
-	<div class="cssTpl">
+	<div class="tpl cssTpl" style="background-color:pink;">
 		这个是CSS模板组件
 	</div>
 </template>
@@ -8,9 +8,4 @@
 	  name: 'CssTpl'
 	}
 </script>
-<style scoped>
-	.cssTpl{
-		background-color:pink;
-		height:100%;
-	}
-</style>
+<style scoped></style>

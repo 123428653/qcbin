@@ -1,5 +1,5 @@
 <template>
-	<div class="NodeTpl">
+	<div class="tpl NodeTpl" style="background-color:lightgreen;">
 		这个是Node模板组件
 	</div>
 </template>
@@ -8,6 +8,4 @@
 	  name: 'NodeTpl'
 	}
 </script>
-<style scoped>
-	.NodeTpl{background-color:lightgreen;height:100%;}
-</style>
+<style scoped></style>

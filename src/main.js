@@ -9,7 +9,9 @@ Vue.config.productionTip = false
 
 // 此处很有用，可以判断某些页面需要登录才能打开的，可在此判断
 /*router.beforeEach((to, from, next) => {
-  console.log('before each invoked')
+  console.log('before each invoked');
+  console.log(to)
+  next()
   if(to.fullPath === '/html'){
     next('/css')
   }else{
@@ -19,16 +21,16 @@ Vue.config.productionTip = false
 })
 
 router.beforeResolve((to, from, next) => {
-  console.log('before esolve invoked')
+  // console.log('before esolve invoked')
   next()
 })
 
 router.afterEach((to, from) => {
-  console.log('after each invoked')
+  // console.log('after each invoked')
 })*/
 
 /* eslint-disable no-new */
-new Vue({
+var vm=new Vue({
   el: '#app',
   router,
   components: { App },

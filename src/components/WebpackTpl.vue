@@ -1,5 +1,5 @@
 <template>
-	<div class="WebpackTpl">
+	<div class="tpl WebpackTpl" style="background-color:lightblue;">
 		这个是Webpack模板组件
 	</div>
 </template>
@@ -8,6 +8,4 @@
 	  name: 'WebpackTpl'
 	}
 </script>
-<style scoped>
-	.WebpackTpl{background-color:lightblue;height:100%;}
-</style>
+<style scoped></style>

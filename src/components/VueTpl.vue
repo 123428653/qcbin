@@ -1,5 +1,5 @@
 <template>
-	<div class="VueTpl">
+	<div class="tpl VueTpl" style="background-color:yellow;">
 		这个是Vue模板组件
 	</div>
 </template>
@@ -8,6 +8,4 @@
 	  name: 'VueTpl'
 	}
 </script>
-<style scoped>
-	.VueTpl{background-color:yellow;height:100%;}
-</style>
+<style scoped></style>

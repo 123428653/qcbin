@@ -1,5 +1,5 @@
 <template>
-	<div class="JsTpl">
+	<div class="tpl JsTpl" style="background-color:hotpink;">
 		这个是Js模板组件
 	</div>
 </template>
@@ -8,6 +8,4 @@
 	  name: "JsTpl"
 	}
 </script>
-<style scoped>
-	.JsTpl{background-color:hotpink;height:100%;}
-</style>re
+<style scoped></style>

@@ -32,7 +32,7 @@
         <marquee-item>纯CSS实现蜡烛、火焰以及熄灭后烟雾效果</marquee-item>
       </marquee>
         <div class="content">
-          <transition name="fade">
+          <transition :name="transformName">
             <router-view />
           </transition>
         </div>
@@ -94,7 +94,7 @@ for(var i=0; i<10; i++){
 const navData = [
   {
     name: "HTML",
-    link: '/html',
+    link: '/',
     tplName: 'HtmlTpl'
   },
   {
@@ -146,8 +146,20 @@ export default {
       this.demo01_index = index
     }
   },
+  watch: {
+    '$route' (to, from){
+      console.log(to)
+      console.log(from)
+      /*console.log(from.meta.activeNumber > to.meta.activeNumber)*/
+      this.tabActive=to.path
+      if(from.name){
+        this.transformName = from.meta.activeNumber > to.meta.activeNumber ? 'slide-right' : 'slide-left';
+      }
+    }
+  },
   data(){
     return {
+      transformName: 'slide-right',
       navData: navData,
       tabActive: this.$route.fullPath,
       demo01_index: 2,
@@ -178,6 +190,9 @@ html,body{
   }
   .tab{
     margin-top:46px;
+    a{
+      display:block;
+    }
   }
   .marquee{
     margin:6px 0;
@@ -203,11 +218,64 @@ img{
 }
 .content{
   height:380px;
+  position: relative;
+  overflow: hidden;
 }
 .fade-enter-active, .fade-leave-active {
   transition: opacity .3s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+
+
+
+
+
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s ease;
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
+.tpl {
+    position: absolute;
+    // z-index: 999;
+    // top: 0;
+    // right: 0;
+    // bottom: 0;
+    // left: 0;
+    width:100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-transition: -webkit-transform .4s cubic-bezier(.55,0,.1,1);
+    transition: -webkit-transform .4s cubic-bezier(.55,0,.1,1);
+    transition: transform .4s cubic-bezier(.55,0,.1,1);
+    transition: transform .4s cubic-bezier(.55,0,.1,1),-webkit-transform .4s cubic-bezier(.55,0,.1,1);
+    will-change: transform;
+    background: #fff;
+    color: #3c3c3c;
+    -webkit-overflow-scrolling: touch
+}
+.tpl.slide-left-enter{
+    -webkit-transform: translate3d(100%,0,0);
+    transform: translate3d(100%,0,0)
+}
+
+.tpl.slide-right-enter{
+    -webkit-transform: translate3d(-100%,0,0);
+    transform: translate3d(-100%,0,0)
+}
+
+.tpl.slide-right-leave-active{
+    -webkit-transform: translate3d(100%,0,0);
+    transform: translate3d(100%,0,0)
+}
+
+.tpl.slide-left-leave-active{
+    -webkit-transform: translate3d(-100%,0,0);
+    transform: translate3d(-100%,0,0)
 }
 </style>
