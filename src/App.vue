@@ -148,9 +148,8 @@ export default {
   },
   watch: {
     '$route' (to, from){
-      console.log(to)
-      console.log(from)
-      /*console.log(from.meta.activeNumber > to.meta.activeNumber)*/
+      console.log('to：'+to.meta.activeNumber)
+      console.log('from：'+from.meta.activeNumber)
       this.tabActive=to.path
       if(from.name){
         this.transformName = from.meta.activeNumber > to.meta.activeNumber ? 'slide-right' : 'slide-left';
