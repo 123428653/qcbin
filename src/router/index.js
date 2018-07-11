@@ -15,10 +15,10 @@ const routes = [
       path: '*',
       component:() => import('@/components/HtmlTpl')
     },
-    /*{
-      path: '/',
-      redirect:'/html'
-    },*/
+    // {
+    //   path: '/',
+    //   redirect:'/html'
+    // },
     {
       // path: '/html/:id',
       // props: true,  //很重要，在HtmlTpl组件内可以通过props直接能获取path路径的id值

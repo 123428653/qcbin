@@ -1,21 +1,21 @@
 
 # qcbin
 
-> A Vue.js project
+> 单入口移动web项目（Vue-cli）
 
-## Build Setup
+## 项目构建
 
 ``` bash
-# install dependencies
+# 安装项目依赖
 npm install
 
-# serve with hot reload at localhost:8082
+# 默认服务器（端口被占用会自增）：localhost:8080
 npm run dev
 
-# build for production with minification
+# 打包生产环境
 npm run build
 
-# build for production and view the bundle analyzer report
+# 打包生产环境并查看包分析报告
 npm run build --report
 ```
 
