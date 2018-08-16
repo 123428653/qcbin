@@ -9,13 +9,16 @@
         <marquee-item>纯CSS实现蜡烛、火焰以及熄灭后烟雾效果</marquee-item>
       </marquee>
       <panel :list="htmlList" type="1"></panel>
-      <div class="loading">加载中...</div>
+      <load-more tip="正在加载"></load-more>
     </div>
   </div>
 </template>
 <script>
-  import {Swiper,Marquee,MarqueeItem,Panel} from 'vux';
+  import Vue from 'vue';
+  import {Swiper,Marquee,MarqueeItem,Panel,LoadMore,LoadingPlugin} from 'vux';
   import axios from 'axios';
+  
+  Vue.use(LoadingPlugin)
   // Banner数据
   const bannerList = [{
     url: 'javascript:',
@@ -27,9 +30,8 @@
     title: '送你一辆车'
   }, {
     url: 'javascript:',
-    img: 'https://static.vux.li/demo/5.jpg', // 404
-    title: '送你一次旅行',
-    fallbackImg: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg'
+    img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg', // 404
+    title: '送你一次旅行'
   }];
 
 	export default {
@@ -37,7 +39,9 @@
       Swiper,
       Marquee,
       MarqueeItem,
-      Panel
+      Panel,
+      LoadMore,
+      LoadingPlugin
     },
 	  name: 'HtmlTpl',
     // props:['id'], //此处是通过路由props:true传过来的
@@ -73,22 +77,23 @@
       send(){
         var _this = this;
         axios.post('http://imoocnote.calfnote.com/inter/getClasses.php?curPage='+this.page)
-        .then(function (response) {
+        .then(response => {
           if(response.status == 200){
-            var newArr=response.data.data.map(function(el, index) {
-              _this.htmlList.push({
+            var newArr=response.data.data.map((el, index) => {
+              this.htmlList.push({
                 src: el.image,
                 title: el.title,
                 desc: el.subtitle
               })
             })
             // _this.htmlList.push(newArr);
-            _this.page ++;
+            this.page ++;
 
             // _this.$nextTick(() => {
-              _this.scrollDom = _this.$refs.scrollBox;
+              this.scrollDom = _this.$refs.scrollBox;
             // })
-            _this.onFetching = false
+            this.onFetching = false
+            this.$vux.loading.hide();
           }
         });
       }
@@ -105,6 +110,9 @@
     },
     mounted(){
       // console.log(`${this.$options.name} 被渲染了`)
+      this.$vux.loading.show({
+       text: 'Loading'
+      })
       this.send();
       // console.log(this.$route.params.id)
       // console.log(this.id)//使用路由的props属性传值完全解耦，能尽量不用this.$route就不用

@@ -13,7 +13,7 @@ Vue.use(Router)
 const routes = [
     {
       path: '*',
-      component:() => import('@/components/HtmlTpl')
+      component:() => import('@/components/index/Bodys')
     },
     // {
     //   path: '/',
@@ -24,8 +24,8 @@ const routes = [
       // props: true,  //很重要，在HtmlTpl组件内可以通过props直接能获取path路径的id值
       // props:(route) => ({id: route.query.page}),//推荐用props来传递值
       path: '/',
-      name: 'HtmlTpl',
-      component: () => import('@/components/HtmlTpl'),
+      name: 'Bodys',
+      component: () => import('@/components/index/Bodys'),
       // components: { //有名的路由模板
       //   default: HtmlTpl,
       //   webpack: WebpackTpl
@@ -44,44 +44,36 @@ const routes = [
       ]*/
     },
     {
-      path: '/css',
-      name: 'CssTpl',
-      component: () => import('@/components/CssTpl'),
+      path: '/search',
+      name: 'Search',
       meta: {
         activeNumber: 1
-      }
+      },
+      component: () => import('@/components/search/Search')
     },
     {
-      path: '/js',
-      name: 'JsTpl',
-      component: () => import('@/components/JsTpl'),
+      path: '/task',
+      name: 'Task',
       meta: {
         activeNumber: 2
-      }
+      },
+      component: () => import('@/components/task/Task')
     },
     {
-      path: '/vue',
-      name: 'VueTpl',
-      component: () => import('@/components/VueTpl'),
+      path: '/user',
+      name: 'User',
       meta: {
         activeNumber: 3
-      }
+      },
+      component: () => import('@/components/user/User')
     },
     {
-      path: '/webpack',
-      name: 'WebpackTpl',
-      component: () => import('@/components/WebpackTpl'),
+      path: '/user/set',
+      name: 'Set',
       meta: {
         activeNumber: 4
-      }
-    },
-    {
-      path: '/node',
-      name: 'NodeTpl',
-      component: () => import('@/components/NodeTpl'),
-      meta: {
-        activeNumber: 5
-      }
+      },
+      component: () => import('@/components/user/children/Set')
     }
   ];
 
@@ -90,7 +82,7 @@ export default new Router({
   // mode: 'history',//清除URL上#号，模拟真实路径(history模式需要后端配置)
   // base: '/base/',//在所有router链接路径前添加一个相对的名称
   linkActiveClass:'nav-active',//修改默认的选中class名称
-  linkExactActiveClass:'nav-exact-active',//修改默认的选中class名称
+  linkExactActiveClass:'exactActive',//修改默认的选中class名称
   scrollBehavior (to, from, savedPosition){
     if(savedPosition){
       return savedPosition

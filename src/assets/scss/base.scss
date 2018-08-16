@@ -1,0 +1,18 @@
+html{
+  font-family: "microsoft yahei", "HanHei SC","PingHei","PingFang SC","STHeitiSC-Light","Helvetica Neue","Helvetica","Arial",sans-serif
+}
+html,body{
+  max-width: 768px;
+  min-width: 320px;
+  margin: 0 auto;
+}
+input,textarea,button{
+  outline: none;
+  -webkit-appearance: none;
+}
+a{
+  color:#666;
+}
+img{
+  width:100%;
+}
