@@ -32,6 +32,44 @@ router.afterEach((to, from) => {
   // console.log('after each invoked')
 })*/
 
+router.beforeEach((to, from, next)=>{
+
+  store.commit('nowStatus', 'loading')
+  if(to.name === 'Detail'){
+    // console.log(to.params.id)
+    store.commit('setItem', to.params.id)
+  }
+  
+  /*
+  if(domainCross.indexOf(location.host) != -1){
+    next()
+  }else{
+    if(to.name == 'error-110'){
+      next()
+    }else{
+      router.openPage('/error/110')
+      next()
+    }
+  }
+  */
+
+  next();
+
+})
+
+router.afterEach((to, from, next)=>{
+  store.commit('nowStatus', 'end')
+
+  setTimeout(()=>{
+    store.commit('nowStatus', 'hide')
+  }, 900)
+
+  setTimeout(()=>{
+    store.commit('nowStatus', 'normal')
+  }, 1000)
+
+})
+
 /* eslint-disable no-new */
 var vm=new Vue({
   // el: '#app',

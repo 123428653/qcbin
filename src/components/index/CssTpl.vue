@@ -69,7 +69,7 @@
 	</div>
 </template>
 <script>
-  import bus from '../../common/bus';
+
 	export default {
 	  name: 'CssTpl',
     methods: {},
@@ -80,16 +80,18 @@
       }
     },
     created(){
-      // console.log('created')
+      this.$store.commit('nowStatus','end')
+      setTimeout(()=>{
+        this.$store.commit('nowStatus','hide')
+      },800)
     },
     beforeCreate(){
-      // console.log('beforeCreate')
+      this.$store.commit('nowStatus','loading')
     },
     mounted(){
-      // console.log(this.currentTab)
-      /*bus.$on('cssmodel',o => {
-        console.log(o.aa)
-      })*/
+      setTimeout(()=>{
+        this.$store.commit('nowStatus','normal')
+      },1000)
     },
     destroyed(){
       // console.log('Css被销毁了')

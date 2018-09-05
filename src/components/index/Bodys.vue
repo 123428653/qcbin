@@ -150,6 +150,7 @@ const navData = [
         // console.log(oldTab)
         this.transitionName = newTab > oldTab ? 'slide-left' : 'slide-right';
         if(newTab == 1){
+          // this.$store.commit('nowStatus','loading')
           this.csst = true;
         }
         if(newTab == 2){

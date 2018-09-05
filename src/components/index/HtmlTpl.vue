@@ -9,13 +9,16 @@
         <marquee-item>纯CSS实现蜡烛、火焰以及熄灭后烟雾效果</marquee-item>
       </marquee>
       <panel :list="htmlList" type="1"></panel>
-      <load-more tip="正在加载"></load-more>
+      <load-more msg="正在加载"></load-more>
     </div>
   </div>
 </template>
 <script>
   import Vue from 'vue';
-  import {Swiper,Marquee,MarqueeItem,Panel,LoadMore,LoadingPlugin} from 'vux';
+  import LoadMore from '../common/LoadMore';
+  import Marquee from '../common/marquee';
+  import MarqueeItem from '../common/marqueeItem';
+  import {Swiper,Panel,LoadingPlugin} from 'vux';
   import axios from 'axios';
   
   Vue.use(LoadingPlugin)
@@ -83,7 +86,8 @@
               this.htmlList.push({
                 src: el.image,
                 title: el.title,
-                desc: el.subtitle
+                desc: el.subtitle,
+                url: '/detail/'+el.id
               })
             })
             // _this.htmlList.push(newArr);

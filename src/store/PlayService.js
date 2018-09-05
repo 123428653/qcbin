@@ -1,10 +1,10 @@
 export default {
   state: {
-    mid: '',
+    mid: '00429bps4fxkk5',
     index: 0,
     songName: '',
     songSinger: '',
-    playing: false,
+    playing: true,
     playList: JSON.parse(window.localStorage.getItem('addPlayList')) || []
   },
   mutations: {

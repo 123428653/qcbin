@@ -8,7 +8,18 @@ import VueTpl from '@/components/VueTpl'
 import WebpackTpl from '@/components/WebpackTpl'
 import NodeTpl from '@/components/NodeTpl'*/
 
+Router.prototype.openPage = function (link, query) {
+  this.push({
+    path: link,
+    /*query: _.assignIn({
+      time: new Date().getTime()
+    }, query || {})*/
+  })
+}
+
 Vue.use(Router)
+
+
 
 const routes = [
     {
@@ -74,6 +85,14 @@ const routes = [
         activeNumber: 4
       },
       component: () => import('@/components/user/children/Set')
+    },
+    {
+      path: '/detail/:id',
+      name: 'Detail',
+      meta: {
+        activeNumber: 2
+      },
+      component: () => import('@/components/detail/index')
     }
   ];
 

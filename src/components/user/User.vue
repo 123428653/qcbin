@@ -68,7 +68,7 @@
       }
     },
     mounted(){
-      this.getMap();
+      this.getAddress();
     },
     methods:{
       ...mapMutations([
@@ -92,24 +92,45 @@
         var index=this.playList.indexOf(item);
         this.playList.splice(index,1);
       },
-      getMap(){
-        var myCity = new BMap.LocalCity();
-        
-        myCity.get(res => {
-          axios.post('https://www.apiopen.top/weatherApi?city='+res.name)
+      sendGet(url, key, val){
+        return new Promise(function(resolve, reject){
+          axios.get(url,{params:{
+              [key]:val
+            }})
           .then(response => {
-            if(response.data.code == 200){
-              this.city = response.data.data.city;
-              this.temperature = response.data.data.wendu;
-              var newArr=response.data.data.forecast.map((el, index) => {
-                if(index === 0){
-                  this.high = el.high
-                  this.low = el.low
-                  this.week = el.date.split('日')[1]
-                }
-              })
-            }
+            resolve(response)
+          }).catch(status => {
+            reject(status)
           });
+        });
+      },
+      getAddress(){
+        
+        this.sendGet(
+          'http://elm.cangdu.org/v1/cities',
+          'type',
+          'guess'
+        )
+        .then(response => {
+          if(response.status === 200){
+            this.sendGet(
+              'https://www.apiopen.top/weatherApi',
+              'city',
+              response.data.name
+            ).then(response => {
+              if(response.data.code == 200){
+                this.city = response.data.data.city;
+                this.temperature = response.data.data.wendu;
+                var newArr=response.data.data.forecast.map((el, index) => {
+                  if(index === 0){
+                    this.high = el.high
+                    this.low = el.low
+                    this.week = el.date.split('日')[1]
+                  }
+                })
+              }
+            })
+          }
         })
         
       }

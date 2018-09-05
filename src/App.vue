@@ -4,7 +4,10 @@
       <!-- <div>
         <div class="avatar"><img src="./assets/qin.jpg" width="80" alt="Qin"></div>
       </div> -->
-      
+      <div class="loading-bar" :class="nowStatus">
+        <span class="press"></span>
+      </div>
+
       <transition :name="transformName">
         <keep-alive>
           <router-view />
@@ -19,12 +22,13 @@
           <router-link tag="span" to="/user"><i class="iconfont icon-wodejuhuasuan"></i>我的</router-link>
         </div>
       </footer>
+
       <div id="playBar" :class="transformPlayBarName">
         <audio 
           ref="music" 
           :src="dataUrl" 
           @ended="endedHandle"
-          autoplay
+          autoplay="autoplay" 
         >
         </audio>
         <div class="playBarImg">
@@ -47,7 +51,6 @@
 </template>
 
 <script>
-import {Tabbar,TabbarItem} from 'vux';
 import Bodys from './components/index/Bodys';
 import {mapMutations, mapState, mapGetters} from 'vuex'
 
@@ -59,8 +62,6 @@ export default {
   name: 'App',
   props: ['id'],
   components: {
-    Tabbar,
-    TabbarItem,
     Bodys,
   },
   methods:{
@@ -140,6 +141,7 @@ export default {
       dataUrl (state){
         return 'https://dl.stream.qqmusic.qq.com/C100' + state.PlayService.mid + '.m4a?fromtag=46'
       },
+      nowStatus: state => state.AppLoading.nowStatus,
       index: state => state.PlayService.index,
       playList: state => state.PlayService.playList,
       playing: state => state.PlayService.playing,
@@ -160,9 +162,10 @@ export default {
 }
 </script>
 
-<style lang="less">
-@import '~vux/src/styles/reset.less';
+<style lang="scss">
+
 @import './assets/font/iconfont.css';
+@import './assets/scss/base.scss';
 
 html,body{
   margin:0;
@@ -173,15 +176,14 @@ html,body{
   position: relative;
   font-family: "microsoft yahei", "HanHei SC","PingHei","PingFang SC","STHeitiSC-Light","Helvetica Neue","Helvetica","Arial",sans-serif
 }
-ul,ol{list-style: none;}
-.scroll-box-x{
-  -webkit-overflow-scrolling: touch;
-  overflow-x: auto;
-}
+
+
 #app {
   height: 100%;
-  
 }
+
+
+
 img{
   vertical-align:middle;
   width: 100%;
@@ -336,30 +338,7 @@ img{
   }
 }
 
-.fade-enter-active, .fade-leave-active{
-  transition: opacity .5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
 
-.slide-left-enter{
-  -webkit-transform: translate3d(100%,0,0);
-  transform: translate3d(100%,0,0)
-}
-.slide-right-enter{
-  -webkit-transform: translate3d(-100%,0,0);
-  transform: translate3d(-100%,0,0)
-}
-
-.slide-right-leave-active{
-  -webkit-transform: translate3d(100%,0,0);
-  transform: translate3d(100%,0,0)
-}
-.slide-left-leave-active{
-  -webkit-transform: translate3d(-100%,0,0);
-  transform: translate3d(-100%,0,0)
-}
 
 
 
